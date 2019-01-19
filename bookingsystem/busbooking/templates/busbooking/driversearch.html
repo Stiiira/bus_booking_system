@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}登陆{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/userlogin.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+	<div class="col-md-4 col-md-offset-4">
+	  <form class='form-login' method="post" action="/booking/driversearchrequest/">
+        {% csrf_token %}
+        <h2 class="text-center">Welcome, {{username}}</h2>
+		<h3 class="text-center">Shuttle Information</h3>
+		<div class="form-group">
+	    </div>
+		<div class="form-group">
+		</div>
+		<div class="form-group">
+		</div>
+        <div class="form-group" align="center">
+			<label for="shuttle_id">选择班次</label>
+			<select name="shuttle_id">
+				{% for shuttle in shuttle_list %}
+				<option value={{shuttle.shuttle_id}}>{{shuttle.shuttle_id}}</option>
+				{% endfor %}
+			</select>
+		<div>
+        <button type="submit" class="btn btn-primary">查询</button>
+	  </form>
+	</div>
+</div>
+
+
+{% endblock %}

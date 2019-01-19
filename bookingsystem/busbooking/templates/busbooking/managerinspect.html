@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}登陆{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/userlogin.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="col-md-4 col-md-offset-4">
+	  <form class='form-login' method="post" action="/booking/managerinspect/">
+      {% csrf_token %}
+      <h2 class="text-center">全部订单信息</h2>
+	  </form>
+	</div>
+</div> 
+
+<table>
+	<tr>
+        <th>订单号</th>
+        <th>购买人</th>
+		<th>班次</th>
+		<th>线路</th>
+		<th>站台</th>
+		<th>时间</th>
+		<th>方向</th>
+		<!-- <th>票数</th> -->
+		<!-- <th>票价</th> -->
+		<th>票号</th>
+        <th>座位号</th>
+        <th>是否支付</th>
+		<th>是否检票</th>
+	</tr>
+	{% for order in order_list %}
+	<tr>
+        <td>{{order.id}}</td>
+        <td>{{order.customer}}</td>
+		<td>{{order.shuttle}}</td>
+		<td>{{order.line}}</td>
+		<td>{{order.station}}</td>
+		<td>{{order.time}}</td>
+		<td>{{order.direction}}</td>
+		<!-- <td>{{order.number}}</td> -->
+		<td>{{order.ticket_id}}</td>
+        <td>{{order.seat}}</td>
+        <td>{{order.ispayment}}</td>
+		<td>{{order.validation}}</td>
+	</tr>	
+	{% endfor %}
+</table>
+
+
+
+
+{% endblock %}

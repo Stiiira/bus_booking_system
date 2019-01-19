@@ -93,7 +93,7 @@ def driverLoginRequest(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return redirect('index')
+			return redirect('driver_search')
 	return redirect('driver_login')
 
 def managerLogin(request):
@@ -106,7 +106,7 @@ def managerLoginRequest(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return redirect('index')
+			return redirect('manager_inspect')
 	return redirect('manager_login')
 
 def signup(request):
@@ -241,3 +241,59 @@ def userLookup(request):
 				'validation': str(ticket.validate),
 			})
 	return render(request, 'busbooking/userlookup.html', {'order_list': order_list})
+
+
+@login_required
+def driversearch(request):
+	username = request.user.username
+	# shuttles = Shuttle.objects.filter(driver_id=username).order_by('shuttle_id')
+	shuttles = Shuttle.objects.filter().order_by('shuttle_id')
+	shuttle_list = []
+	for s in shuttles:
+		shuttle_list.append({
+			'shuttle_id': s.shuttle_id,
+		})
+	return render(request, 'busbooking/driversearch.html', {'username': username,'shuttle_list': shuttle_list})
+
+
+
+@login_required
+def driversearchRequest(request):
+	shuttle = int(request.POST['shuttle_id'])
+	return redirect('driver_validate', shuttle=shuttle)
+
+
+@login_required
+def drivervalidate(request,shuttle):
+	# return redirect('user_buy_time', shuttle=shuttle)
+	return render(request, 'busbooking/drivervalidate.html')
+
+
+@login_required
+def drivervalidateRequest(request):
+	return redirect('driver_validate')
+
+
+@login_required
+def managerinspect(request):
+	pass
+	orders = Order.objects.filter().order_by('-order_id')
+	order_list = []
+	for o in orders:
+		time = o.shuttle_id.departure_time
+		time_str = '{}:{}'.format(str(time.hour).zfill(2), str(time.minute).zfill(2))
+		for ticket in Ticket.objects.filter(order_id=o).order_by('-ticket_id'):
+			order_list.append({
+				'id': o.order_id,
+				'customer':o.customer_id.username,
+				'shuttle': o.shuttle_id.shuttle_id,
+				'line': o.shuttle_id.route_id.Route_name,
+				'station': o.station_id.station_name,
+				'time': time_str,
+				'direction': o.shuttle_id.direction,
+				'ticket_id': ticket.ticket_id,
+				'seat': ticket.seat_id,
+				'ispayment': o.ispayment,
+				'validation': str(ticket.validate),
+			})
+	return render(request, 'busbooking/managerinspect.html', {'order_list': order_list})
