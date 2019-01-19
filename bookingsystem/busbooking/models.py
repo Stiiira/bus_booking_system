@@ -24,7 +24,7 @@ class Employee(User):
         verbose_name = '雇员'
         verbose_name_plural = '雇员'
 
-class Bus(User):
+class Bus(models.Model):
 
     bus_id = models.AutoField(primary_key=True)
     bus_name = models.CharField(max_length=128)
