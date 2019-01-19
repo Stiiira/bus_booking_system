@@ -13,7 +13,6 @@ class Customer(User):
         verbose_name = '用户'
         verbose_name_plural = '用户'
 
-
 class Employee(User):
     # customer_id = models.CharField(primary_key=True,max_length=128)
     # first_name = models.CharField(max_length=128)
@@ -76,7 +75,7 @@ class Shuttle(models.Model):
     shuttle_id = models.AutoField(primary_key=True)
     route_id = models.ForeignKey(Route, models.DO_NOTHING)
     direction = models.CharField(max_length=128)
-    departure_time = models.DateTimeField()
+    departure_time = models.TimeField()
     driver_id = models.ForeignKey(Bus_driver, models.DO_NOTHING)
 
     class Meta:
@@ -91,6 +90,8 @@ class Order(models.Model):
     shuttle_id = models.ForeignKey(Shuttle, models.DO_NOTHING)
     customer_id = models.ForeignKey(Customer, models.DO_NOTHING)
     number = models.IntegerField()
+    ispayment = models.BooleanField(default=False)
+    paymentamount = models.IntegerField()
 
     class Meta:
         verbose_name = '订单'

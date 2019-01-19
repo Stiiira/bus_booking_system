@@ -1,5 +1,41 @@
-<h3>User Login</h3>
-<div>
+
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}登录{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/userlogin.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<!-- <h3>User Login</h3> -->
+
+<div class="container">
+	<div class="col-md-4 col-md-offset-4">
+	  <form class='form-login' method="post" action="/booking/userloginrequest/">
+		{% csrf_token %}
+		  <h2 class="text-center">Welcome</h2>
+		  <div class="form-group">
+		  </div>
+		  <div class="form-group">
+		  </div>
+		  <div class="form-group">
+		  </div>
+		  <div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" id="username" name="username" class="form-control" placeholder="Username" required />
+		  </div>
+		  <div class="form-group">
+			<label for="password">Passward</label>
+			<input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
+		  </div>
+		  <button type="submit" class="btn btn-primary pull-right">Login</button>
+	  </form>
+	</div>
+</div> <!-- /container -->
+
+
+<!-- <div>
 	<form method="post" action="/booking/userloginrequest/">
 		{% csrf_token %}
 		<div class="form-group">
@@ -12,4 +48,6 @@
 		</div>
 		<button type="submit" class="btn btn-primary">Login</button>
 	</form>
-</div>
+</div> -->
+
+{% endblock %}
