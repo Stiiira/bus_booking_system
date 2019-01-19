@@ -13,7 +13,6 @@ class Customer(User):
         verbose_name = '用户'
         verbose_name_plural = '用户'
 
-
 class Employee(User):
     # customer_id = models.CharField(primary_key=True,max_length=128)
     # first_name = models.CharField(max_length=128)
