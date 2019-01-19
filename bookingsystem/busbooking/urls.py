@@ -2,10 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-	path('', view.index, name='index'),
-	path('loginredirect/', view.loginRedirect, name='login redirect'),
-	path('userlogin/', view.userLogin, name='user login'),
-	path('driverlogin/', view.driverLogin, name='driver login'),
-	path('managerlogin/', view.managerLogin, name='manager login')
-	path('signup/', view.signup, name='user signup'),
+	path('', views.index, name='index'),
+	path('loginredirect/', views.loginRedirect, name='login_redirect'),
+	path('userlogin/', views.userLogin, name='user_login'),
+	path('userloginrequest/', views.userLoginRequest, name='user_login_request'),
+	path('driverlogin/', views.driverLogin, name='driver_login'),
+	path('managerlogin/', views.managerLogin, name='manager_login'),
+	path('signup/', views.signup, name='user_signup'),
 ]
