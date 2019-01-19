@@ -1,0 +1,31 @@
+<h3>Buy Ticket -- Choose shuttle</h3>
+<div>
+	<form method="post" action="/booking/userbuyrequesttime/">
+		{% csrf_token %}
+		<div class="form-group">
+			<label for="shuttle_id">选择班次</label>
+			<select name="shuttle_id">
+				{% for shuttle in shuttle_list %}
+				<option value={{shuttle.id}}>{{shuttle.time}}余票：{{shuttle.number}}</option>
+				{% endfor %}
+			</select>
+		<div>
+		<div class="form-group">
+			<label for="station_id">选择站点</label>
+			<select name="station_id">
+				{% for station in station_list %}
+				<option value={{station.id}}>{{station.name}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="number">选择购买票数</label>
+			<select name="number">
+				{% for i in numbers %}
+				<option value={{i}}>{{i}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<button type="submit" class="btn btn-primary">订购</button>
+	</form>
+</div>

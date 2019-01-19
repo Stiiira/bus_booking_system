@@ -7,8 +7,6 @@ class Customer(User):
     # first_name = models.CharField(max_length=128)
     # last_name = models.CharField(max_length=128)
     # pass_word = models.CharField(max_length=256)
-
-
     class Meta:
         verbose_name = '用户'
         verbose_name_plural = '用户'
@@ -18,20 +16,16 @@ class Employee(User):
     # first_name = models.CharField(max_length=128)
     # last_name = models.CharField(max_length=128)
     # pass_word = models.CharField(max_length=256)
-
-
     class Meta:
         verbose_name = '雇员'
         verbose_name_plural = '雇员'
 
 class Bus(models.Model):
-
     bus_id = models.AutoField(primary_key=True)
     bus_name = models.CharField(max_length=128)
     class Meta:
         verbose_name = '车'
         verbose_name_plural = '车'
-
 
 class Bus_driver(User):
 
@@ -39,7 +33,7 @@ class Bus_driver(User):
     # first_name = models.CharField(max_length=128)
     # last_name = models.CharField(max_length=128)
     # pass_word = models.CharField(max_length=256)
-    bus = models.ForeignKey(Bus, models.DO_NOTHING)
+    bus = models.ForeignKey(Bus, models.DO_NOTHING, default='')
 
     class Meta:
         verbose_name = '司机'
@@ -91,7 +85,7 @@ class Order(models.Model):
     customer_id = models.ForeignKey(Customer, models.DO_NOTHING)
     number = models.IntegerField()
     ispayment = models.BooleanField(default=False)
-    paymentamount = models.IntegerField()
+    paymentamount = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = '订单'

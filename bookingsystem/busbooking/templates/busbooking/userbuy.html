@@ -1,12 +1,12 @@
-<h3>Buy Tickets</h3>
+<h3>Buy Tickets -- Query Line Information</h3>
 <div>
-	<form method="post" action="/booking/userbuy/">
+	<form method="post" action="/booking/userbuyrequest/">
 		{% csrf_token %}
 		<div class="form-group">
 			<label for="route_id">选择线路</label>
 			<select name="route_id">
 				{% for line in route_ids %}
-				<option value={{line}}>{{line}}号线</option>
+				<option value={{line.id}}>{{line.name}}</option>
 				{% endfor %}
 			</select>
 		<div>
