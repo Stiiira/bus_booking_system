@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from .models import *
 # Create your views here.
 
+shuttle_unit = 3
+
 @login_required
 def index(request):
 	username = request.user.username
@@ -22,7 +24,7 @@ def userLoginRequest(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return redirect('index')
+			return redirect('user_index')
 	return redirect('user_login')
 
 def driverLogin(request):
@@ -51,7 +53,6 @@ def managerLoginRequest(request):
 			return redirect('index')
 	return redirect('manager_login')
 
-@login_required
 def signup(request):
 	return render(request, 'busbooking/signup.html')
 
@@ -87,8 +88,29 @@ def userIndex(request):
 
 @login_required
 def userBuy(request):
-	pass
+	routes = Route.objects.order_by('Route_id')
+	route_ids = []
+	for r in routes:
+		route_id = r.Route_id
+		route_ids.append(route_id)
+	return render(request, 'busbooking/userbuy.html',
+			{'route_ids': route_ids})
+
+@login_required
+def userBuyRequest(request):
+	route_id = int(request.POST['route_id'])
+	direction = int(request.POST['direction'])
+	shuttles = []
+	query_shuttles = Shuttle.objects.filter(route_id=route_id, direction=direction==1?'TO':'FROM').order_by('shuttle_id')
+	for s in query_shuttles:
+		shuttles.append({
+			'time':
+		})
+
+@login_required
+def userBuyTime(request, line, direction):
+
 
 @login_required
 def userLookup(request):
-	pass
+	return render(request, 'busbooking/userlookup.html')

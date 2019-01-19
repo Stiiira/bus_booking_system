@@ -16,5 +16,8 @@ urlpatterns = [
 	
 	path('userindex/', views.userIndex, name='user_index'),
 	path('userbuy/', views.userBuy, name='user_buy'),
+	path('userbuyrequest/', views.userBuyRequest, name='user_buy_request'),
+	path('userbuytime/', views.userBuyTime, name='user_buy_time'),
+	path('userbuyrequesttime/<int:line>/<int:direction>', views.userBuyRequestTime, name='user_buy_request_time'),
 	path('userlookup/', views.userLookup, name='user_lookup'),
 ]

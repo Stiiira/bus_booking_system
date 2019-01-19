@@ -1,0 +1,20 @@
+<h3>Buy Tickets</h3>
+<div>
+	<form method="post" action="/booking/userbuy/">
+		{% csrf_token %}
+		<div class="form-group">
+			<label for="route_id">选择线路</label>
+			<select name="route_id">
+				{% for line in route_ids %}
+				<option value={{line}}>{{line}}号线</option>
+				{% endfor %}
+			</select>
+		<div>
+		<div class="form-group">
+			<label for="direction">选择方向</label>
+			<label><input name="direction" type="radio" value="1"/>开往机场</label>
+			<label><input name="direction" type="radio" value="2"/>开往城区</label>
+		</div>
+		<button type="submit" class="btn btn-primary">查询</button>
+	</form>
+</div>
