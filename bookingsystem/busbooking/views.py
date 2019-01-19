@@ -51,7 +51,6 @@ def managerLoginRequest(request):
 			return redirect('index')
 	return redirect('manager_login')
 
-@login_required
 def signup(request):
 	return render(request, 'busbooking/signup.html')
 
