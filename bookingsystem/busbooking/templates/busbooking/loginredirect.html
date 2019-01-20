@@ -9,7 +9,7 @@
 
 <div class="container">
 	<div class="col-md-4 col-md-offset-4">
-	  <form class='form-login' method="post" action="/booking/userloginrequest/">
+	  {# <form class='form-login' method="post" action="/booking/userloginrequest/"> #}
       {% csrf_token %}
       <h2 class="text-center">Choose Your Role</h2>
 		  <div class="form-group" align="center" style="position:relative;top:10px">
@@ -21,7 +21,7 @@
       <div class="form-group" align="center" style="position:relative;top:10px">
         <button type="submit" class="btn btn center"><a href='/booking/managerlogin/'> Manager </a></button>
       </div>
-	  </form>
+	  {# </form> #}
 	</div>
 </div> <!-- /container -->
 

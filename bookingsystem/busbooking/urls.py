@@ -26,6 +26,7 @@ urlpatterns = [
 	path('driversearch/', views.driversearch, name='driver_search'),
 	path('driversearchrequest/', views.driversearchRequest, name='driver_search_request'),
 	path('drivervalidate/<int:shuttle>/', views.drivervalidate, name='driver_validate'),
-	path('drivervalidaterequest/', views.drivervalidateRequest, name='driver_validate_request'),
+	path('drivervalidaterequest/<int:shuttle>/', views.drivervalidateRequest, name='driver_validate_request'),
+	path('validatesuccess/<int:shuttle>/', views.validateSuccess, name='validate_success'),
 	path('managerinspect/', views.managerinspect, name='manager_inspect'),
 ]

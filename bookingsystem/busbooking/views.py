@@ -247,7 +247,7 @@ def userLookup(request):
 def driversearch(request):
 	username = request.user.username
 	# shuttles = Shuttle.objects.filter(driver_id=username).order_by('shuttle_id')
-	shuttles = Shuttle.objects.filter().order_by('shuttle_id')
+	shuttles = Shuttle.objects.filter(driver_id=get_object_or_404(Bus_driver,username=username)).order_by('shuttle_id')
 	shuttle_list = []
 	for s in shuttles:
 		shuttle_list.append({
@@ -265,18 +265,31 @@ def driversearchRequest(request):
 
 @login_required
 def drivervalidate(request,shuttle):
-	# return redirect('user_buy_time', shuttle=shuttle)
-	return render(request, 'busbooking/drivervalidate.html')
+	return render(request, 'busbooking/drivervalidate.html',{'shuttle':shuttle})
 
 
 @login_required
-def drivervalidateRequest(request):
-	return redirect('driver_validate')
+def drivervalidateRequest(request, shuttle):
+	ticket_id = int(request.POST['ticket_id'])
+	try:
+		ticket = Ticket.objects.get(ticket_id=ticket_id)
+		if ticket.validate == True:
+			return redirect('driver_validate', shuttle=shuttle)
+		if ticket.order_id.shuttle_id.shuttle_id == int(shuttle):
+			ticket.validate = True
+			ticket.save()
+			return redirect('validate_success', shuttle=shuttle)
+	except Exception as e:
+		print(e)
+	return redirect('driver_validate', shuttle=shuttle)
 
+@login_required
+def validateSuccess(request, shuttle):
+	return render(request, 'busbooking/validatesuccess.html', {'shuttle':shuttle})
 
 @login_required
 def managerinspect(request):
-	pass
+	# pass
 	orders = Order.objects.filter().order_by('-order_id')
 	order_list = []
 	for o in orders:
